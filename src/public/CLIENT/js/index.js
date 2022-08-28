@@ -2,14 +2,10 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
     data() {
         return{
             playing: false,
-            name: null,
-            artists: null,
-            img: null,
-            wallpaper: null,
-            token: null,
             initialised: false,
             autoplay: false,
-            tracks: []
+            tracks: [],
+            trackIndex: 0
         }
     },
     methods: {
@@ -29,11 +25,11 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
     template: ''+
         '<div class="col col-12 col-sm-10 col-md-8 col-lg-6">'+
             '<div class="plexamp">'+
-                '<div class="wallpaper"><div :style="{ backgroundImage: \'url(\' + wallpaper + \')\' }"></div></div>'+
-                '<div class="img" :style="{ backgroundImage: \'url(\' + img + \')\' }"></div>'+
+                '<div class="wallpaper"><div :style="{ backgroundImage: \'url(\' + tracks[trackIndex].Wallpaper + \')\' }"></div></div>'+
+                '<div class="img" :style="{ backgroundImage: \'url(\' + tracks[trackIndex].Cover + \')\' }"></div>'+
                 '<div class="controls">'+
-                    '<div :title="name" v-if="initialised" class="name">{{name}}</div>'+
-                    '<div :title="artists" v-if="initialised" class="artist">{{artists}}</div>'+
+                    '<div :title="name" v-if="initialised" class="name">{{ tracks[trackIndex].Title }}</div>'+
+                    '<div :title="artists" v-if="initialised" class="artist">{{ tracks[trackIndex].Album }}</div>'+
                     //'<input type="range" min="0" max="100">'+
                     '<button v-show="!initialised" @click="toggle">'+
                         '<i class="fas fa-power-off"></i>'+
@@ -64,6 +60,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                             '</tr>'+
                         '</tbody>'+
                     '</table>'+
+                    '<audio v-if="initialised" src="{{ tracks[trackIndex].URL }}"></audio>'+
                 '</div>'+
             '</div>'+
         '</div>'
@@ -93,8 +90,6 @@ let PlexampPlayer = null;
 
 MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
     console.log(_tracks);
-    PlexampApp.$children[0].img = _tracks[0].Cover;
-    PlexampApp.$children[0].wallpaper = _tracks[0].Wallpaper;
     PlexampApp.$children[0].initialised = true;
     PlexampApp.$children[0].tracks = _tracks;
 });
