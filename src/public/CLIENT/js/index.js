@@ -60,7 +60,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                             '</tr>'+
                         '</tbody>'+
                     '</table>'+
-                    '<audio v-if="initialised" src="{{ tracks[trackIndex].URL }}"></audio>'+
+                    '<audio v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
                 '</div>'+
             '</div>'+
         '</div>'
