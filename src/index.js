@@ -67,6 +67,12 @@ class Plexamp extends LIBRARIES.Skill {
                   SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].grandparentThumb + "?X-Plex-Token=" + this.Settings.token,
                   SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].Media[0].Part[0].key + "?X-Plex-Token=" + this.Settings.token
                 )
+                if(res2.data.MediaContainer.Metadata[track_index].thumb == undefined){
+                  track.Cover = track.Wallpaper;
+                }
+                if(res2.data.MediaContainer.Metadata[track_index].grandparentThumb == undefined){
+                  track.Wallpaper = track.Cover;
+                }
                 TRACKS.push(track);
               }
               if(_callback != undefined){
