@@ -99,7 +99,7 @@ class Plexamp extends LIBRARIES.Skill {
       // L'utilisateur demande son token
       socket.on("get_plexamp_tracks", function() {
         SELF.getAllTracks(function(tracks){
-          socket.emit("set_plexamp_tracks", tracks);
+          socket.emit("set_plexamp_tracks", tracks.sort(() => Math.random() - 0.5));
         });
       });
     });
