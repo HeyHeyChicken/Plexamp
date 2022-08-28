@@ -32,7 +32,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         },
         previous: function(event){
             if(this.trackIndex - 1 < 0){
-                this.trackIndex = 0;
+                this.trackIndex = this.tracks.length - 1;
             }
             else{
                 this.trackIndex--;
