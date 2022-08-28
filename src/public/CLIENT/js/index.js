@@ -99,8 +99,7 @@ MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
     PlexampApp.$children[0].tracks = _tracks;
 });
 
-MAIN.Socket.on("set_plexamp_play", function(_track) {
-    console.log(_track);
+MAIN.Socket.on("set_plexamp_play", function() {
     if(!PlexampApp.$children[0].playing){
         PlexampPlayer.resume();
     }
