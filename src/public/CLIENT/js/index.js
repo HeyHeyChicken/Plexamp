@@ -15,7 +15,6 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
     methods: {
         toggle: function(event){
             if(this.tracks.length == 0){
-                console.log("I NEED THE LIST");
                 MAIN.Socket.emit("get_plexamp_tracks");
             }
             this.playing = !this.playing;
@@ -93,7 +92,8 @@ let PlexampPlayer = null;
 /* ############################################################################################ */
 
 MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
-    console.log(_tracks);
+    PlexampApp.$children[0].initialised = true;
+    PlexampApp.$children[0].tracks = _tracks;
 });
 
 MAIN.Socket.on("set_plexamp_play", function(_track) {

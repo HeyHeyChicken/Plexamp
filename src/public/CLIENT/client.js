@@ -7,7 +7,6 @@ class Client {
         // Sockets from client
         this.Main.IOServer.on("connection", function(socket){
             socket.on("get_plexamp_tracks", function(){
-                console.log("HE NEED THE LIST");
                 SELF.Main.IOClient.emit("get_plexamp_tracks");
             });
         });
