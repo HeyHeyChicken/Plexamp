@@ -51,7 +51,9 @@ class Plexamp extends LIBRARIES.Skill {
 
   // Cette fonction part récupérer la liste de toutes les musiques disponible.
   getAllTracks(_callback){
+    const SELF = this;
     const TRACKS = [];
+
     LIBRARIES.Axios.get(this.Settings.serverIP + ":" + this.Settings.serverPort + "/library/sections/" + this.Settings.libraryID + "/all?type=" + this.Settings.typeID + "&X-Plex-Token=" + this.Settings.token)
       .then((res2) => {
         if(res2.data.MediaContainer.Metadata != undefined){
@@ -61,8 +63,8 @@ class Plexamp extends LIBRARIES.Skill {
                 let track = new LIBRARIES.Track(
                   res2.data.MediaContainer.Metadata[track_index].title,
                   res2.data.MediaContainer.Metadata[track_index].parentTitle,
-                  res2.data.MediaContainer.Metadata[track_index].thumb,
-                  res2.data.MediaContainer.Metadata[track_index].Media[0].Part[0].key
+                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].thumb,
+                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].Media[0].Part[0].key
                 )
                 TRACKS.push(track);
               }

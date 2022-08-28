@@ -92,6 +92,7 @@ let PlexampPlayer = null;
 /* ############################################################################################ */
 
 MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
+    console.log(_tracks);
     PlexampApp.$children[0].initialised = true;
     PlexampApp.$children[0].tracks = _tracks;
 });
