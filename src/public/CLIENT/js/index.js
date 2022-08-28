@@ -27,9 +27,11 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         },
         next: function(event){
             MAIN.Socket.emit("plexamp_next");
+            trackIndex++;
         },
         previous: function(event){
             MAIN.Socket.emit("plexamp_previous");
+            trackIndex--;
         }
     },
     template: ''+
