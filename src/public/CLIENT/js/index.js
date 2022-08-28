@@ -125,7 +125,7 @@ MAIN.Socket.on("set_plexamp_pause", function() {
 });
 
 MAIN.Socket.on("set_plexamp_next", function() {
-    if(PlexampApp.$children[0].trackIndex + 1 >= PlexampApp.$children[0].tracks){
+    if(PlexampApp.$children[0].trackIndex + 1 >= PlexampApp.$children[0].tracks.length){
         PlexampApp.$children[0].trackIndex = 0;
     }
     else{
@@ -138,6 +138,6 @@ MAIN.Socket.on("set_plexamp_previous", function() {
         PlexampApp.$children[0].trackIndex = PlexampApp.$children[0].tracks.length - 1;
     }
     else{
-        PlexampApp.$children[0].trackIndex++;
+        PlexampApp.$children[0].trackIndex--;
     }
 });
