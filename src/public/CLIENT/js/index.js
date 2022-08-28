@@ -13,17 +13,18 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
     },
     methods: {
         power: function(event){
-            MAIN.Socket.emit("get_spotify_token");
+            this.playing = !this.playing;
+            MAIN.Socket.emit("plexamp_togglePlay");
         },
         toggle: function(event){
             this.playing = !this.playing;
-            PlexampPlayer.togglePlay();
+            MAIN.Socket.emit("plexamp_togglePlay");
         },
         next: function(event){
-            PlexampPlayer.nextTrack();
+            MAIN.Socket.emit("plexamp_next");
         },
         previous: function(event){
-            PlexampPlayer.previousTrack();
+            MAIN.Socket.emit("plexamp_previous");
         }
     },
     template: ''+
@@ -69,8 +70,8 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         '</div>'
 });
 
-const DIV = document.createElement("novaplexamp");
 const ID = "novaplexamp";
+const DIV = document.createElement(ID);
 DIV.setAttribute("id", ID);
 document.getElementById("home").getElementsByClassName("row")[0].appendChild(DIV);
 
@@ -80,9 +81,32 @@ MAIN.Volume.Subscriptions.push(function(_volume){
     }
 });
 
-let SpotifyApp = new Vue({
+let PlexampApp = new Vue({
     el: "#" + ID
 });
-SpotifyApp.$children[0].img = MAIN.App.server.url + "/529913411/img/plexamp.png"
+PlexampApp.$children[0].img = MAIN.App.server.url + "/529913411/img/plexamp.png"
 
 let PlexampPlayer = null;
+
+/* ############################################################################################ */
+/* ### SOCKETS ################################################################################ */
+/* ############################################################################################ */
+
+MAIN.Socket.on("set_spotify_play", function(_track) {
+    console.log(_track);
+    if(!PlexampApp.$children[0].playing){
+        PlexampPlayer.resume();
+    }
+});
+
+MAIN.Socket.on("set_spotify_next", function() {
+    PlexampPlayer.nextTrack();
+});
+
+MAIN.Socket.on("set_spotify_previous", function() {
+    PlexampPlayer.previousTrack();
+});
+
+MAIN.Socket.on("set_spotify_pause", function() {
+    PlexampPlayer.pause();
+});
