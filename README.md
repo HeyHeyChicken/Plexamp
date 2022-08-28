@@ -5,7 +5,7 @@
 This skill will allow you to play the music present in your Plex server.
 <br><br>
 
-<img src="https://github.com/HeyHeyChicken/NOVA-Blank-Skill/blob/master/resources/github-screenshot.jpg" alt="NOVA" width="800">
+<img src="https://raw.githubusercontent.com/HeyHeyChicken/Plexamp/master/resources/github-screenshot.jpg" alt="NOVA" width="800">
 </div>
 
 <br>
