@@ -60,11 +60,13 @@ class Plexamp extends LIBRARIES.Skill {
           if(res2.data.MediaContainer.Metadata[0] != undefined){
             if(res2.data.MediaContainer.Metadata[0].type == "track"){
               for(let track_index in res2.data.MediaContainer.Metadata){
+                console.log(res2.data.MediaContainer.Metadata[track_index]);
                 let track = new LIBRARIES.Track(
                   res2.data.MediaContainer.Metadata[track_index].title,
                   res2.data.MediaContainer.Metadata[track_index].parentTitle,
-                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].thumb,
-                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].Media[0].Part[0].key
+                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].thumb + "&X-Plex-Token=" + this.Settings.token,
+                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].thumb + "&X-Plex-Token=" + this.Settings.token,
+                  SELF.Settings.serverIP + ":" + SELF.Settings.serverPort + res2.data.MediaContainer.Metadata[track_index].Media[0].Part[0].key + "&X-Plex-Token=" + this.Settings.token
                 )
                 TRACKS.push(track);
               }
