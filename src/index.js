@@ -1,31 +1,83 @@
 const LIBRARIES = {
   Skill: require("../../../Libraries/Skill"),
+  Track: require("./Track"),
   Axios: require("axios")
 };
 
-class Facebook extends LIBRARIES.Skill {
+class Plexamp extends LIBRARIES.Skill {
   constructor(_main, _settings) {
     super(_main, _settings);
     const SELF = this;
 
-    console.log(_settings);
+    _settings.libraryID = null;
+    _settings.typeID = null;
 
     if(_settings.token != null && _settings.token != ""){
       LIBRARIES.Axios.get(_settings.serverIP + ":" + _settings.serverPort + "/library/sections/?X-Plex-Token=" + _settings.token)
-        .then((res) => {
-          console.log(`Status: ${res.status}`);
-          console.log('Body: ', res.data);
+        .then((res1) => {
+          loop1:
+          for(let library_index in res1.data.MediaContainer.Directory){
+            if(res1.data.MediaContainer.Directory[library_index].title == _settings.musicLibraryName){
+              _settings.libraryID = res1.data.MediaContainer.Directory[library_index].key;
+              
+              for(let type_index = 0; type_index < 11; type_index++){
+                LIBRARIES.Axios.get(_settings.serverIP + ":" + _settings.serverPort + "/library/sections/" + _settings.libraryID + "/all?type=" + type_index + "&X-Plex-Token=" + _settings.token)
+                  .then((res2) => {
+                    if(res2.data.MediaContainer.Metadata != undefined){
+                      if(res2.data.MediaContainer.Metadata[0] != undefined){
+                        if(res2.data.MediaContainer.Metadata[0].type == "track"){
+                          _settings.typeID = type_index;
+                          _main.Log("[Plexamp] I'm ready.");
+                          SELF.afterPlexReady();
+
+                          SELF.getAllTracks();
+                        }
+                      }
+                    }
+                  }).catch((err) => {
+                    console.error(err);
+                  }
+                );
+              }
+              break loop1;
+            }
+          }
         }).catch((err) => {
           console.error(err);
         }
       );
     }
+  }
 
-    this.Main.Manager.addAction("Facebook.post", function(_intent, _socket){
-      // Here you will add an action when the user want to post anything on Facebook.
-      // You can access utterances variables like this : _intent.Variables.text
+  getAllTracks(){
+    LIBRARIES.Axios.get(this.Settings.serverIP + ":" + this.Settings.serverPort + "/library/sections/" + this.Settings.libraryID + "/all?type=" + this.Settings.typeID + "&X-Plex-Token=" + this.Settings.token)
+      .then((res2) => {
+        if(res2.data.MediaContainer.Metadata != undefined){
+          if(res2.data.MediaContainer.Metadata[0] != undefined){
+            if(res2.data.MediaContainer.Metadata[0].type == "track"){
+              console.log(res2.data.MediaContainer.Metadata);
+              let track = new LIBRARIES.Track(
+                res2.data.MediaContainer.Metadata.title,
+                res2.data.MediaContainer.Metadata.parentTitle,
+                res2.data.MediaContainer.Metadata.thumb,
+                res2.data.MediaContainer.Metadata.Media[0].key
+              )
+
+              console.log(track);
+            }
+          }
+        }
+      }).catch((err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  afterPlexReady(){
+    this.Main.Manager.addAction("Plexamp.play", function(_intent, _socket){
+      
     });
   }
 }
 
-module.exports = Facebook;
+module.exports = Plexamp;
