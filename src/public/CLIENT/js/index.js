@@ -115,11 +115,19 @@ MAIN.Socket.on("set_plexamp_pause", function() {
 });
 
 MAIN.Socket.on("set_plexamp_next", function() {
-    console.log("next");
-    PlexampApp.$children[0].playing++;
+    if(PlexampApp.$children[0].trackIndex + 1 >= PlexampApp.$children[0].tracks){
+        PlexampApp.$children[0].trackIndex = 0;
+    }
+    else{
+        PlexampApp.$children[0].trackIndex++;
+    }
 });
 
 MAIN.Socket.on("set_plexamp_previous", function() {
-    console.log("previous");
-    PlexampApp.$children[0].playing--;
+    if(PlexampApp.$children[0].trackIndex - 1 < 0){
+        PlexampApp.$children[0].trackIndex = PlexampApp.$children[0].tracks.length - 1;
+    }
+    else{
+        PlexampApp.$children[0].trackIndex++;
+    }
 });
