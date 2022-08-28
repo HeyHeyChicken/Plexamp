@@ -32,8 +32,8 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         previous: function(event){
             this.trackIndex--;
             if(this.playing){
-                const PLAYER = document.getElementById(PLAYER_ID);
-                PLAYER.play();
+                this.toggle();
+                this.toggle();
             }
         }
     },
