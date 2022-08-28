@@ -87,19 +87,19 @@ class Plexamp extends LIBRARIES.Skill {
     const SELF = this;
     
     this.Main.Manager.addAction("Plexamp.play", function(_intent, _socket){
-      socket.emit("set_plexamp_play");
+      _socket.emit("set_plexamp_play");
     });
 
     this.Main.Manager.addAction("Plexamp.pause", function(_intent, _socket){
-      socket.emit("set_plexamp_pause");
+      _socket.emit("set_plexamp_pause");
     });
 
     this.Main.Manager.addAction("Plexamp.next", function(_intent, _socket){
-      socket.emit("set_plexamp_next");
+      _socket.emit("set_plexamp_next");
     });
 
     this.Main.Manager.addAction("Plexamp.previous", function(_intent, _socket){
-      socket.emit("set_plexamp_previous");
+      _socket.emit("set_plexamp_previous");
     });
 
     /* ############################################################################################ */
