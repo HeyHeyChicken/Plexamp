@@ -4,7 +4,14 @@
     {
       "intent": "Plexamp.play",
       "utterances": [
-        "Mets de la musique"
+        "Remets la musique",
+        "Remets de la musique",
+        "Mets de la musique",
+        "Mets la musique",
+        "Mets-moi de la musique",
+        "Joue-moi de la musique",
+        "Remets-moi de la musique",
+        "Rejoue moi de la musique"
       ],
       "answers": []
     }

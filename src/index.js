@@ -80,6 +80,8 @@ class Plexamp extends LIBRARIES.Skill {
 
   // Cette fonction s'execute une fois que Plexamp s'est correctement injitialisé.
   afterPlexReady(){
+    const SELF = this;
+    
     this.Main.Manager.addAction("Plexamp.play", function(_intent, _socket){
       SELF.getAllTracks(function(tracks){
         console.log(tracks);
