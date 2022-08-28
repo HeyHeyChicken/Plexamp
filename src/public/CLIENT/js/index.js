@@ -23,10 +23,20 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             }
         },
         next: function(event){
-            this.trackIndex++;
+            if(this.trackIndex + 1 >= this.tracks.length){
+                this.trackIndex = 0;
+            }
+            else{
+                this.trackIndex++;
+            }
         },
         previous: function(event){
-            this.trackIndex--;
+            if(this.trackIndex - 1 < 0>){
+                this.trackIndex = 0;
+            }
+            else{
+                this.trackIndex--;
+            }
         }
     },
     template: ''+
