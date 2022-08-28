@@ -1,3 +1,5 @@
+const { format } = require("path");
+
 const LIBRARIES = {
   Skill: require("../../../Libraries/Skill"),
   Track: require("./Track"),
@@ -29,8 +31,6 @@ class Plexamp extends LIBRARIES.Skill {
                           _settings.typeID = type_index;
                           _main.Log("[Plexamp] I'm ready.");
                           SELF.afterPlexReady();
-
-                          SELF.getAllTracks();
                         }
                       }
                     }
@@ -49,21 +49,26 @@ class Plexamp extends LIBRARIES.Skill {
     }
   }
 
-  getAllTracks(){
+  // Cette fonction part récupérer la liste de toutes les musiques disponible.
+  getAllTracks(_callback){
+    const TRACKS = [];
     LIBRARIES.Axios.get(this.Settings.serverIP + ":" + this.Settings.serverPort + "/library/sections/" + this.Settings.libraryID + "/all?type=" + this.Settings.typeID + "&X-Plex-Token=" + this.Settings.token)
       .then((res2) => {
         if(res2.data.MediaContainer.Metadata != undefined){
           if(res2.data.MediaContainer.Metadata[0] != undefined){
             if(res2.data.MediaContainer.Metadata[0].type == "track"){
-              console.log(res2.data.MediaContainer.Metadata);
-              let track = new LIBRARIES.Track(
-                res2.data.MediaContainer.Metadata.title,
-                res2.data.MediaContainer.Metadata.parentTitle,
-                res2.data.MediaContainer.Metadata.thumb,
-                res2.data.MediaContainer.Metadata.Media[0].key
-              )
-
-              console.log(track);
+              for(let track_index in res2.data.MediaContainer.Metadata){
+                let track = new LIBRARIES.Track(
+                  res2.data.MediaContainer.Metadata[track_index].title,
+                  res2.data.MediaContainer.Metadata[track_index].parentTitle,
+                  res2.data.MediaContainer.Metadata[track_index].thumb,
+                  res2.data.MediaContainer.Metadata[track_index].Media[0].Part[0].key
+                )
+                TRACKS.push(track);
+              }
+              if(_callback != undefined){
+                _callback(TRACKS);
+              }
             }
           }
         }
@@ -73,9 +78,12 @@ class Plexamp extends LIBRARIES.Skill {
     );
   }
 
+  // Cette fonction s'execute une fois que Plexamp s'est correctement injitialisé.
   afterPlexReady(){
     this.Main.Manager.addAction("Plexamp.play", function(_intent, _socket){
-      
+      SELF.getAllTracks(function(tracks){
+        console.log(tracks);
+      });
     });
   }
 }
