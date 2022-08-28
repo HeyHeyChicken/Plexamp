@@ -1,14 +1,10 @@
 {
-	"worksOffline" : false,
+	"worksOffline" : true,
 	"description" : {
 		"fr-FR": "Une description en français.",
 		"en-US": "A description in english."
 	},
 	"language": [
-		"fr-FR",
-		"en-US",
-		"es-ES",
-		"it-IT",
-		"de-DE"
+		"fr-FR"
 	]
 }

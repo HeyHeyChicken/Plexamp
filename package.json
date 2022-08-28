@@ -1,7 +1,7 @@
 {
-  "name": "nova-blank-skill",
+  "name": "nova-plexamp",
   "version": "1.0.0",
-  "description": "This skill is useless, except to provide you an architecture as an example to start your skills development.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
