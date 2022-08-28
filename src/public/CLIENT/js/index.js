@@ -1,3 +1,4 @@
+const PLAYER_ID = "plexamp_player";
 const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
     data() {
         return{
@@ -13,7 +14,16 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             if(this.tracks.length == 0){
                 MAIN.Socket.emit("get_plexamp_tracks");
             }
-            this.playing = !this.playing;
+            else{
+                const PLAYER = document.getElementById(PLAYER_ID);
+                this.playing = !this.playing;
+                if(this.playing){
+                    PLAYER.play();
+                }
+                else{
+                    PLAYER.pause();
+                }
+            }
         },
         next: function(event){
             MAIN.Socket.emit("plexamp_next");
@@ -28,8 +38,8 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                 '<div class="wallpaper"><div :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Wallpaper : null) + \')\' }"></div></div>'+
                 '<div class="img" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Cover : null) + \')\' }"></div>'+
                 '<div class="controls">'+
-                    '<div :title="name" v-if="initialised" class="name">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Title : null }}</div>'+
-                    '<div :title="artists" v-if="initialised" class="artist">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Album : null }}</div>'+
+                    '<div v-if="initialised" class="name">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Title : null }}</div>'+
+                    '<div v-if="initialised" class="artist">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Album : null }}</div>'+
                     //'<input type="range" min="0" max="100">'+
                     '<button v-show="!initialised" @click="toggle">'+
                         '<i class="fas fa-power-off"></i>'+
@@ -60,7 +70,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                             '</tr>'+
                         '</tbody>'+
                     '</table>'+
-                    '<audio v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
+                    '<audio id="' + PLAYER_ID + '" v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
                 '</div>'+
             '</div>'+
         '</div>'
@@ -89,14 +99,21 @@ let PlexampPlayer = null;
 /* ############################################################################################ */
 
 MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
-    console.log(_tracks);
     PlexampApp.$children[0].initialised = true;
     PlexampApp.$children[0].tracks = _tracks;
 });
 
 MAIN.Socket.on("set_plexamp_play", function() {
+    const PLAYER = document.getElementById(PLAYER_ID);
     if(!PlexampApp.$children[0].playing){
-        PlexampPlayer.resume();
+        PLAYER.play();
+    }
+});
+
+MAIN.Socket.on("set_plexamp_pause", function() {
+    const PLAYER = document.getElementById(PLAYER_ID);
+    if(PlexampApp.$children[0].playing){
+        PLAYER.pause();
     }
 });
 
@@ -106,8 +123,4 @@ MAIN.Socket.on("set_plexamp_next", function() {
 
 MAIN.Socket.on("set_plexamp_previous", function() {
     PlexampPlayer.previousTrack();
-});
-
-MAIN.Socket.on("set_plexamp_pause", function() {
-    PlexampPlayer.pause();
 });
