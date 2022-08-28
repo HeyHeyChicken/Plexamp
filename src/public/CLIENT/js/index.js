@@ -103,7 +103,6 @@ MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
 });
 
 MAIN.Socket.on("set_plexamp_play", function() {
-    console.log("ok");
     PlexampApp.$children[0].playing = true;
     const PLAYER = document.getElementById(PLAYER_ID);
     PLAYER.play();
@@ -116,9 +115,11 @@ MAIN.Socket.on("set_plexamp_pause", function() {
 });
 
 MAIN.Socket.on("set_plexamp_next", function() {
+    console.log("next");
     PlexampApp.$children[0].playing++;
 });
 
 MAIN.Socket.on("set_plexamp_previous", function() {
+    console.log("previous");
     PlexampApp.$children[0].playing--;
 });
