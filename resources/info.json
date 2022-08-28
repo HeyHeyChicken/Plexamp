@@ -1,8 +1,8 @@
 {
 	"worksOffline" : true,
 	"description" : {
-		"fr-FR": "Une description en français.",
-		"en-US": "A description in english."
+		"fr-FR": "Cette compétence vous permettra de jouer les musiques présentes dans votre serveur Plex.",
+		"en-US": "This skill will allow you to play the music present in your Plex server."
 	},
 	"language": [
 		"fr-FR"

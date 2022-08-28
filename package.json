@@ -1,7 +1,7 @@
 {
   "name": "nova-plexamp",
   "version": "1.0.0",
-  "description": "",
+  "description": "This skill will allow you to play the music present in your Plex server.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

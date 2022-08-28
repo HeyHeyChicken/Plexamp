@@ -2,7 +2,7 @@
 <img src="https://github.com/HeyHeyChicken/NOVA/blob/master/resources/github-logo.svg" alt="NOVA" width="300">
 
 **NOVA - Plexamp** is a skill for your [NOVA](//github.com/HeyHeyChicken/NOVA) assistant.<br>
-This skill is useless, except to provide you an architecture as an example to start your skills development.
+This skill will allow you to play the music present in your Plex server.
 <br><br>
 
 <img src="https://github.com/HeyHeyChicken/NOVA-Blank-Skill/blob/master/resources/github-screenshot.jpg" alt="NOVA" width="800">
@@ -18,7 +18,7 @@ This skill is useless, except to provide you an architecture as an example to st
 
 ## Features
 
-- Add your skill features here.
+- This skill will allow you to play the music present in your Plex server.
 
 <br>
 <br>
