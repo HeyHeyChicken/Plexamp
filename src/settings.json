@@ -1,3 +1,8 @@
 {
-  "Here you can add all settings you need for your skill": "like API key, etc ..."
+  "Settings": {
+    "serverIP": "http://192.168.1.12",
+    "serverPort": "32400",
+    "token": "abcdefghijklmnopqrstuvwxyz",
+    "musicLibraryName": "Musique"
+  }
 }
