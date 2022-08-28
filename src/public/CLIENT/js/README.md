@@ -1,1 +1,0 @@
-Place your js files for your clients here.
