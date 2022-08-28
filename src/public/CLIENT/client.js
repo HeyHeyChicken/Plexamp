@@ -15,14 +15,17 @@ class Client {
         this.Main.IOClient.on("set_plexamp_tracks", function(_tracks){
             SELF.Main.IOServer.sockets.emit("set_plexamp_tracks", _tracks);
         });
-        this.Main.IOClient.on("set_spotify_next", function(){
-            SELF.Main.IOServer.sockets.emit("set_spotify_next");
+        this.Main.IOClient.on("set_plexamp_play", function(){
+            SELF.Main.IOServer.sockets.emit("set_plexamp_play");
         });
-        this.Main.IOClient.on("set_spotify_previous", function(){
-            SELF.Main.IOServer.sockets.emit("set_spotify_previous");
+        this.Main.IOClient.on("set_plexamp_pause", function(){
+            SELF.Main.IOServer.sockets.emit("set_plexamp_pause");
         });
-        this.Main.IOClient.on("set_spotify_pause", function(){
-            SELF.Main.IOServer.sockets.emit("set_spotify_pause");
+        this.Main.IOClient.on("set_plexamp_next", function(){
+            SELF.Main.IOServer.sockets.emit("set_plexamp_next");
+        });
+        this.Main.IOClient.on("set_plexamp_previous", function(){
+            SELF.Main.IOServer.sockets.emit("set_plexamp_previous");
         });
     }
 }

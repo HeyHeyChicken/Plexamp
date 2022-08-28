@@ -24,17 +24,9 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         },
         next: function(event){
             this.trackIndex++;
-            if(this.playing){
-                const PLAYER = document.getElementById(PLAYER_ID);
-                PLAYER.play();
-            }
         },
         previous: function(event){
             this.trackIndex--;
-            if(this.playing){
-                this.toggle();
-                this.toggle();
-            }
         }
     },
     template: ''+
@@ -75,7 +67,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                             '</tr>'+
                         '</tbody>'+
                     '</table>'+
-                    '<audio v-bind:autoplay="playing" id="' + PLAYER_ID + '" v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
+                    '<audio volume="1" v-bind:autoplay="playing" id="' + PLAYER_ID + '" v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
                 '</div>'+
             '</div>'+
         '</div>'
@@ -111,23 +103,21 @@ MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
 });
 
 MAIN.Socket.on("set_plexamp_play", function() {
+    PlexampApp.$children[0].playing = true;
     const PLAYER = document.getElementById(PLAYER_ID);
-    if(!PlexampApp.$children[0].playing){
-        PLAYER.play();
-    }
+    PLAYER.play();
 });
 
 MAIN.Socket.on("set_plexamp_pause", function() {
+    PlexampApp.$children[0].playing = false;
     const PLAYER = document.getElementById(PLAYER_ID);
-    if(PlexampApp.$children[0].playing){
-        PLAYER.pause();
-    }
+    PLAYER.pause();
 });
 
 MAIN.Socket.on("set_plexamp_next", function() {
-    PlexampPlayer.nextTrack();
+    PlexampApp.$children[0].playing++;
 });
 
 MAIN.Socket.on("set_plexamp_previous", function() {
-    PlexampPlayer.previousTrack();
+    PlexampApp.$children[0].playing--;
 });

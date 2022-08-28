@@ -14,6 +14,27 @@
         "Rejoue moi de la musique"
       ],
       "answers": []
+    },
+    {
+      "intent": "Plexamp.next",
+      "utterances": [
+        "Musique suivante",
+        "Mets la musique d'après"
+      ]
+    },
+    {
+      "intent": "Plexamp.previous",
+      "utterances": [
+        "Musique précédente",
+        "Remets la musique d'avant"
+      ]
+    },
+    {
+      "intent": "Plexamp.pause",
+      "utterances": [
+        "Pause",
+        "Stop"
+      ]
     }
   ]
 }

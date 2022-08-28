@@ -60,6 +60,7 @@ class Plexamp extends LIBRARIES.Skill {
           if(res2.data.MediaContainer.Metadata[0] != undefined){
             if(res2.data.MediaContainer.Metadata[0].type == "track"){
               for(let track_index in res2.data.MediaContainer.Metadata){
+                console.log(res2.data.MediaContainer.Metadata[track_index]);
                 let track = new LIBRARIES.Track(
                   res2.data.MediaContainer.Metadata[track_index].title,
                   res2.data.MediaContainer.Metadata[track_index].parentTitle,
@@ -86,9 +87,19 @@ class Plexamp extends LIBRARIES.Skill {
     const SELF = this;
     
     this.Main.Manager.addAction("Plexamp.play", function(_intent, _socket){
-      SELF.getAllTracks(function(tracks){
-        _socket.emit();
-      });
+      socket.emit("set_plexamp_play");
+    });
+
+    this.Main.Manager.addAction("Plexamp.pause", function(_intent, _socket){
+      socket.emit("set_plexamp_pause");
+    });
+
+    this.Main.Manager.addAction("Plexamp.next", function(_intent, _socket){
+      socket.emit("set_plexamp_next");
+    });
+
+    this.Main.Manager.addAction("Plexamp.previous", function(_intent, _socket){
+      socket.emit("set_plexamp_previous");
     });
 
     /* ############################################################################################ */
