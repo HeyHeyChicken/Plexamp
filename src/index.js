@@ -85,6 +85,20 @@ class Plexamp extends LIBRARIES.Skill {
     this.Main.Manager.addAction("Plexamp.play", function(_intent, _socket){
       SELF.getAllTracks(function(tracks){
         console.log(tracks);
+        _socket.emit();
+      });
+    });
+
+    /* ############################################################################################ */
+    /* ### SOCKETS ################################################################################ */
+    /* ############################################################################################ */
+
+    this.Main.ClientIO.on("connection", function(socket){
+      // L'utilisateur demande son token
+      socket.on("get_plexamp_tracks", function() {
+        SELF.getAllTracks(function(tracks){
+          socket.emit("set_plexamp_tracks", tracks);
+        });
       });
     });
   }
