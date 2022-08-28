@@ -83,6 +83,6 @@ MAIN.Volume.Subscriptions.push(function(_volume){
 let SpotifyApp = new Vue({
     el: "#" + ID
 });
-SpotifyApp.$children[0].img = MAIN.App.server.url + "/260646715/img/plexamp.png"
+SpotifyApp.$children[0].img = MAIN.App.server.url + "/529913411/img/plexamp.png"
 
 let PlexampPlayer = null;
