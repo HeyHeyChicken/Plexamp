@@ -93,6 +93,8 @@ let PlexampPlayer = null;
 
 MAIN.Socket.on("set_plexamp_tracks", function(_tracks) {
     console.log(_tracks);
+    PlexampApp.$children[0].img = _tracks[0].Cover;
+    PlexampApp.$children[0].wallpaper = _tracks[0].Wallpaper;
     PlexampApp.$children[0].initialised = true;
     PlexampApp.$children[0].tracks = _tracks;
 });
