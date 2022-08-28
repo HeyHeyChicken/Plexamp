@@ -96,7 +96,9 @@ class Plexamp extends LIBRARIES.Skill {
     this.Main.ClientIO.on("connection", function(socket){
       // L'utilisateur demande son token
       socket.on("get_plexamp_tracks", function() {
+        console.log("OK OK ...");
         SELF.getAllTracks(function(tracks){
+          console.log("SENDING");
           socket.emit("set_plexamp_tracks", tracks);
         });
       });
