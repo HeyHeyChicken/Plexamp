@@ -45,7 +45,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             }
         },
         timeUpdate: function(event){
-            this.trackPercent = event.target.currentTime * 100 / event.target.duration;
+            this.trackPercent = (event.target.currentTime * 100 / event.target.duration) + "%";
         }
     },
     template: ''+
@@ -53,7 +53,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             '<div class="plexamp">'+
                 '<div class="wallpaper">'+
                     '<div class="background" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Wallpaper : null) + \')\' }"></div>'+
-                    '<div class="time" :style="{ width: trackPercent + "%" }"></div>'+
+                    '<div class="time" :style="{ width: trackPercent }"></div>'+
                 '</div>'+
                 '<div class="img" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Cover : defaultImage) + \')\' }"></div>'+
                 '<div class="controls">'+
