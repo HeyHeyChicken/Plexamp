@@ -44,7 +44,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         '<div class="col col-12 col-sm-10 col-md-8 col-lg-6">'+
             '<div class="plexamp">'+
                 '<div class="wallpaper"><div :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Wallpaper : null) + \')\' }"></div></div>'+
-                '<div class="img" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Cover : null) + \')\' }"></div>'+
+                '<div class="img" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Cover : MAIN.App.server.url + "/529913411/img/plexamp.png") + \')\' }"></div>'+
                 '<div class="controls">'+
                     '<div v-if="initialised" class="name">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Title : null }}</div>'+
                     '<div v-if="initialised" class="artist">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Album : null }}</div>'+
@@ -98,7 +98,6 @@ MAIN.Volume.Subscriptions.push(function(_volume){
 let PlexampApp = new Vue({
     el: "#" + ID
 });
-PlexampApp.$children[0].img = MAIN.App.server.url + "/529913411/img/plexamp.png"
 
 let PlexampPlayer = null;
 
