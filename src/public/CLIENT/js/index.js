@@ -44,7 +44,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             }
         },
         timeUpdate: function(event){
-            console.log(event);
+            console.log(event.target.currentTime);
         }
     },
     template: ''+
