@@ -10,7 +10,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
         }
     },
     methods: {
-        toggle: function(event){
+        toggle: function(){
             if(this.tracks.length > 0){
                 const PLAYER = document.getElementById(PLAYER_ID);
                 this.playing = !this.playing;
@@ -22,7 +22,8 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                 }
             }
         },
-        next: function(event){
+        next: function(){
+            console.log("gg");
             if(this.trackIndex + 1 >= this.tracks.length){
                 this.trackIndex = 0;
             }
@@ -30,7 +31,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                 this.trackIndex++;
             }
         },
-        previous: function(event){
+        previous: function(){
             if(this.trackIndex - 1 < 0){
                 this.trackIndex = this.tracks.length - 1;
             }
@@ -77,7 +78,7 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                             '</tr>'+
                         '</tbody>'+
                     '</table>'+
-                    '<audio data-volume="100" @onended="next()" volume="1" v-bind:autoplay="playing" id="' + PLAYER_ID + '" v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
+                    '<audio controls data-volume="100" @onended="next()" volume="1" v-bind:autoplay="playing" id="' + PLAYER_ID + '" v-if="initialised" v-bind:src="tracks[trackIndex].URL"></audio>'+
                 '</div>'+
             '</div>'+
         '</div>'
