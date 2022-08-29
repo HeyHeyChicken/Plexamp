@@ -21,6 +21,9 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
                     PLAYER.pause();
                 }
             }
+            else{
+                MAIN.Socket.emit("get_plexamp_tracks");
+            }
         },
         next: function(){
             console.log("gg");
