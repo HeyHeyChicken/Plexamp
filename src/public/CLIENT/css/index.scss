@@ -15,11 +15,14 @@ html{
           left: 0px;
           height: 100%;
           width: 100%;
-  
+
           > div{
             position: absolute;
-            top: 0px;
             left: 0px;
+          }
+  
+          > .background{
+            top: 0px;
             height: 100%;
             width: 100%;
             filter: blur(10px);
@@ -28,6 +31,12 @@ html{
             transition: background-image 0.25s ease;
             transition-delay: 0s;
             opacity: 0.5;
+          }
+
+          > .time{
+            bottom: 0px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
           }
         }
   

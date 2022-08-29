@@ -7,7 +7,8 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             initialised: false,
             autoplay: false,
             tracks: [],
-            trackIndex: 0
+            trackIndex: 0,
+            trackPercent: 0
         }
     },
     methods: {
@@ -44,14 +45,16 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             }
         },
         timeUpdate: function(event){
-            const PERCENT = event.target.currentTime * 100 / event.target.duration;
-            console.log(PERCENT);
+            this.trackPercent = event.target.currentTime * 100 / event.target.duration;
         }
     },
     template: ''+
         '<div class="col col-12 col-sm-10 col-md-8 col-lg-6">'+
             '<div class="plexamp">'+
-                '<div class="wallpaper"><div :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Wallpaper : null) + \')\' }"></div></div>'+
+                '<div class="wallpaper">'+
+                    '<div class="background" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Wallpaper : null) + \')\' }"></div>'+
+                    '<div class="time" :style="{ width: trackPercent + "%" }"></div>'+
+                '</div>'+
                 '<div class="img" :style="{ backgroundImage: \'url(\' + (tracks[trackIndex] != undefined ? tracks[trackIndex].Cover : defaultImage) + \')\' }"></div>'+
                 '<div class="controls">'+
                     '<div v-if="initialised" class="name">{{ tracks[trackIndex] != undefined ? tracks[trackIndex].Title : null }}</div>'+
