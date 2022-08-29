@@ -44,7 +44,8 @@ const PLEXAMP_COMPONENT = Vue.component("novaplexamp", {
             }
         },
         timeUpdate: function(event){
-            console.log(event.target.currentTime);
+            const PERCENT = event.target.currentTime * 100 / event.target.duration;
+            console.log(PERCENT);
         }
     },
     template: ''+
